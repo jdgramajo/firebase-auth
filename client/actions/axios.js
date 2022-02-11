@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getAuth } from "firebase/auth";
+
 import firebase from "../firebase";
 
 export const axiosPublic = axios.create({
@@ -11,7 +13,8 @@ export const axiosAuth = axios.create({
 
 axiosAuth.interceptors.request.use(
   async (config) => {
-    let user = await firebase.auth().currentUser;
+    const auth = getAuth(firebase);
+    const user = auth.currentUser;
     config.headers.token = user ? await user.getIdToken(true) : "";
     return config;
   },

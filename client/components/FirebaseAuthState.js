@@ -4,16 +4,19 @@
  */
 
 import React, { useEffect, useContext } from "react";
+import { setCookie, destroyCookie } from "nookies";
+import { getAuth } from "firebase/auth";
+
 import firebase from "../firebase";
 import { Context } from "../context";
 import { axiosAuth } from "../actions/axios";
-import { setCookie, destroyCookie } from "nookies";
 
 const FirebaseAuthState = ({ children }) => {
   const { dispatch } = useContext(Context);
+  const auth = getAuth(firebase);
 
   useEffect(() => {
-    return firebase.auth().onIdTokenChanged(async (user) => {
+    return auth.onIdTokenChanged(async (user) => {
       if (!user) {
         dispatch({
           type: "LOGOUT",

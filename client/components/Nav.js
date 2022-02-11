@@ -1,8 +1,10 @@
-import Link from "next/link";
 import { useContext } from "react";
-import { Context } from "../context";
-import firebase from "../firebase";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { getAuth, signOut } from "firebase/auth";
+
+import firebase from "../firebase";
+import { Context } from "../context";
 
 const Nav = () => {
   const {
@@ -13,7 +15,8 @@ const Nav = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await firebase.auth().signOut();
+    const auth = getAuth(firebase);
+    await signOut(auth);
     dispatch({
       type: "LOGOUT",
     });

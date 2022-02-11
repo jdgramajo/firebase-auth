@@ -1,26 +1,32 @@
-import firebase from "../firebase";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import LoginRegisterForm from "../components/LoginRegisterForm";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { Button } from "antd";
 import { GoogleOutlined, SyncOutlined } from "@ant-design/icons";
-import Link from "next/link";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+
+import LoginRegisterForm from "../components/LoginRegisterForm";
+import firebase from "../firebase";
 
 const Login = () => {
-  const [loginEmail, setLoginEmail] = useState("ryanstripebuyer@gmail.com");
-  const [loginPass, setLoginPass] = useState("rrrrrr");
+  const [loginEmail, setLoginEmail] = useState("jdgramajo@gmail.com");
+  const [loginPass, setLoginPass] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPass, setRegisterPass] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const auth = getAuth(firebase);
 
   const register = async () => {
-    // console.log(registerEmail, registerPass);
     setLoading(true);
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(registerEmail, registerPass)
+    await createUserWithEmailAndPassword(auth, registerEmail, registerPass)
       .then((user) => {
         console.log("REGISTER", user);
         router.push("/");
@@ -33,11 +39,8 @@ const Login = () => {
   };
 
   const login = async () => {
-    // console.log(loginEmail, loginPass);
     setLoading(true);
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(loginEmail, loginPass)
+    await signInWithEmailAndPassword(auth, loginEmail, loginPass)
       .then((user) => {
         console.log("LOGIN", user);
         router.push("/");
@@ -50,11 +53,10 @@ const Login = () => {
   };
 
   const googleLogin = async () => {
-    await firebase
-      .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((user) => {
-        console.log("LOGIN", user);
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("LOGIN", result.user);
         router.push("/");
       })
       .catch((err) => {
@@ -75,8 +77,8 @@ const Login = () => {
 
       <Button
         onClick={googleLogin}
-        className="mb-3 col-md-6 offset-md-3"
-        type="danger"
+        type="primary"
+        danger
         shape="round"
         icon={<GoogleOutlined />}
         size="large"

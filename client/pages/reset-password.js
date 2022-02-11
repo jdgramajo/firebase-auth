@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import firebase from "../firebase";
-import { useRouter } from "next/router";
-import { Context } from "../context";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { getAuth } from "firebase/auth";
+
+import { Context } from "../context";
+import firebase from "../firebase";
 
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
@@ -28,9 +30,9 @@ const PasswordReset = () => {
       url: process.env.passwordResetRedirect,
       handleCodeInApp: true,
     };
+    const auth = getAuth(firebase);
 
-    await firebase
-      .auth()
+    await auth
       .sendPasswordResetEmail(email, config)
       .then(() => {
         setEmail("");
