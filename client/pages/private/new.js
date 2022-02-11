@@ -1,11 +1,11 @@
 import { parseCookies } from "nookies";
 import axios from "axios";
 
-const NewBooking = () => {
+const PrivateContent = () => {
   return (
     <div className="container">
-      <h2>Post a new hotel for booking</h2>
-      <p className="lead">This is protected page for logged in user only</p>
+      <h2>Private content from private endpoint in the backend.</h2>
+      <p className="lead">This is a protected page for logged in users only.</p>
     </div>
   );
 };
@@ -13,7 +13,6 @@ const NewBooking = () => {
 export async function getServerSideProps(context) {
   try {
     const cookies = parseCookies(context);
-    //   console.log("NOOKIES SENDING TOKEN", cookies);
     const { data } = await axios.get(`${process.env.api}/private-route`, {
       headers: {
         token: cookies.token,
@@ -31,4 +30,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default NewBooking;
+export default PrivateContent;

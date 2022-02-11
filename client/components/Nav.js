@@ -11,7 +11,6 @@ const Nav = () => {
     state: { user },
     dispatch,
   } = useContext(Context);
-  // const { user } = state;
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -29,8 +28,8 @@ const Nav = () => {
         <a className="nav-link">Home</a>
       </Link>
 
-      <Link href={user ? "/hotel/new" : "/login"}>
-        <a className="nav-link">Submit Hotel</a>
+      <Link href={user ? "/private/new" : "/login"}>
+        <a className="nav-link">Private Content</a>
       </Link>
 
       {user ? (

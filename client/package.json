@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "keywords": [],
-  "author": "",
+  "author": "JD",
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
