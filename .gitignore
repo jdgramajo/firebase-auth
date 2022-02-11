@@ -21,13 +21,10 @@ package-lock.json
 
 # nextjs
 .next
+.env.local
 
 # Coveralls
 coverage
 
 # VSCode
 .vscode
-
-# firebase
-firebase.js
-serviceAccountKey.json

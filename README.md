@@ -3,7 +3,6 @@
 Remember to add the correct contents in the following files:
 
 ```
-client/firebase.js                        # Frontend firebase config
-server/.env                               # Port and database configuration
-server/firebase/serviceAccountKey.json    # Backend firebase config
+client/.env.local   # Firebase API key for the browser
+server/.env         # Express settings for port, db, proj. id, private key id, and private key
 ```
