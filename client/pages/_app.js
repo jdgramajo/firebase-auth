@@ -1,7 +1,6 @@
 import { ToastContainer } from "react-toastify";
 
 import "bootstrap/dist/css/bootstrap.css";
-import "antd/dist/antd.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import FirebaseAuthState from "../components/FirebaseAuthState";

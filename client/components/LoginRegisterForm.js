@@ -9,7 +9,7 @@ const LoginRegisterForm = ({
   handleSubmit,
 }) => (
   <div className="col-md-6">
-    <div className="form-group">
+    <div className="form-group my-1">
       <label>Email</label>
       <input
         type="email"
@@ -20,7 +20,7 @@ const LoginRegisterForm = ({
       <small>We'll never share your email</small>
     </div>
 
-    <div className="form-group">
+    <div className="form-group my-1">
       <label>Password</label>
       <input
         type="password"
@@ -30,7 +30,7 @@ const LoginRegisterForm = ({
       />
     </div>
 
-    <div>
+    <div className="my-2">
       <button onClick={handleSubmit} className="btn btn-primary">
         {buttonName}
       </button>

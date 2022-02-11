@@ -23,25 +23,33 @@ const Nav = () => {
   };
 
   return (
-    <nav className="nav bg-light d-flex justify-content-between">
-      <Link href="/">
-        <a className="nav-link">Home</a>
-      </Link>
-
-      <Link href={user ? "/private/new" : "/login"}>
-        <a className="nav-link">Private Content</a>
-      </Link>
-
-      {user ? (
-        <a onClick={handleLogout} className="nav-link">
-          Logout
-        </a>
-      ) : (
-        <Link href="/login">
-          <a className="nav-link">Login</a>
+    <ul className="nav bg-light d-flex justify-content-start">
+      <li className="nav-item">
+        <Link href="/">
+          <a className="nav-link">Home</a>
         </Link>
+      </li>
+      {user ? (
+        <>
+          <li className="nav-item">
+            <a className="nav-link" onClick={handleLogout} href="#">
+              Logout
+            </a>
+          </li>
+          <li className="nav-item">
+            <Link href={user ? "/private/new" : "/login"}>
+              <a className="nav-link">Private Content</a>
+            </Link>
+          </li>
+        </>
+      ) : (
+        <li className="nav-item">
+          <Link href="/login">
+            <a className="nav-link">Login</a>
+          </Link>
+        </li>
       )}
-    </nav>
+    </ul>
   );
 };
 
