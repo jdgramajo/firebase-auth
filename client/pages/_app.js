@@ -7,7 +7,7 @@ import FirebaseAuthState from "../components/FirebaseAuthState";
 import { Provider } from "../context";
 import Nav from "../components/Nav";
 
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <Provider>
       <FirebaseAuthState>
@@ -17,4 +17,6 @@ export default function MyApp({ Component, pageProps }) {
       </FirebaseAuthState>
     </Provider>
   );
-}
+};
+
+export default MyApp;
