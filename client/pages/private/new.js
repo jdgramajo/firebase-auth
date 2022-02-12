@@ -1,5 +1,4 @@
 import { parseCookies } from "nookies";
-import axios from "axios";
 
 const PrivateContent = () => {
   return (
@@ -13,12 +12,14 @@ const PrivateContent = () => {
 export const getServerSideProps = async (context) => {
   try {
     const cookies = parseCookies(context);
-    const { data } = await axios.get(`${process.env.api}/private-route`, {
+    const response = await fetch(`${process.env.api}/private-route`, {
+      method: "GET",
       headers: {
         token: cookies.token,
       },
     });
-    if (data.ok) return { props: {} };
+    if (!response?.ok) throw new Error("Response not ok.");
+    return { props: {} };
   } catch (err) {
     return {
       redirect: {
