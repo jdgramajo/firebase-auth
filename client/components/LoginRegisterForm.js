@@ -7,6 +7,8 @@ const LoginRegisterForm = ({
   setPass,
   buttonName,
   handleSubmit,
+  toggleForm,
+  toggleText,
 }) => (
   <div className="col-md-6">
     <div className="form-group my-1">
@@ -16,6 +18,7 @@ const LoginRegisterForm = ({
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         className="form-control"
+        placeholder="email"
       />
       <small>We'll never share your email</small>
     </div>
@@ -27,13 +30,19 @@ const LoginRegisterForm = ({
         onChange={(e) => setPass(e.target.value)}
         value={pass}
         className="form-control"
+        placeholder="password"
       />
     </div>
 
-    <div className="my-2">
+    <div className="d-flex justify-content-evenly my-4">
       <button onClick={handleSubmit} className="btn btn-primary">
         {buttonName}
       </button>
+      <div onClick={toggleForm}>
+        <a className="link-primary" href="#">
+          {toggleText}
+        </a>
+      </div>
     </div>
   </div>
 );

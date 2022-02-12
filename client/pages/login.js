@@ -14,11 +14,12 @@ import LoginRegisterForm from "../components/LoginRegisterForm";
 import firebase from "../firebase";
 
 const Login = () => {
-  const [loginEmail, setLoginEmail] = useState("jdgramajo@gmail.com");
+  const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPass, setRegisterPass] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLogin, toggleIsLogin] = useState(true);
   const router = useRouter();
   const auth = getAuth(firebase);
 
@@ -63,6 +64,8 @@ const Login = () => {
       });
   };
 
+  const toggleForm = () => toggleIsLogin(!isLogin);
+
   return (
     <div className="container">
       <h2 className="text-center pt-4 display-4">
@@ -73,7 +76,7 @@ const Login = () => {
             </div>
           </div>
         ) : (
-          "Login / Register"
+          <div className="my-5">{isLogin ? "Login" : "Register"}</div>
         )}
       </h2>
 
@@ -81,7 +84,7 @@ const Login = () => {
         <button
           type="button"
           onClick={googleLogin}
-          className="btn btn-danger rounded-pill col-10"
+          className="btn btn-danger rounded-pill col-6"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -97,31 +100,28 @@ const Login = () => {
         </button>
       </div>
 
-      <div className="row mt-3">
+      <div className="d-flex justify-content-center mt-3">
         <LoginRegisterForm
-          email={loginEmail}
-          setEmail={setLoginEmail}
-          pass={loginPass}
-          setPass={setLoginPass}
-          handleSubmit={login}
-          buttonName="Login"
-        />
-
-        <LoginRegisterForm
-          email={registerEmail}
-          setEmail={setRegisterEmail}
-          pass={registerPass}
-          setPass={setRegisterPass}
-          handleSubmit={register}
-          buttonName="Register"
+          email={isLogin ? loginEmail : registerEmail}
+          setEmail={isLogin ? setLoginEmail : setRegisterEmail}
+          pass={isLogin ? loginPass : registerPass}
+          setPass={isLogin ? setLoginPass : setRegisterPass}
+          handleSubmit={isLogin ? login : register}
+          buttonName={isLogin ? "Login" : "Register"}
+          toggleForm={toggleForm}
+          toggleText={isLogin ? "Sign in" : "Go to Login"}
         />
       </div>
 
-      <div className="d-flex">
-        <Link href="/reset-password">
-          <a className="btn btn-outline-danger btn-sm mt-5">Reset Password</a>
-        </Link>
-      </div>
+      {isLogin ? (
+        <div className="d-flex justify-content-center mt-1">
+          <Link href="/reset-password">
+            <a className="btn btn-outline-danger btn-sm">Reset Password</a>
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
