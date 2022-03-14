@@ -39,7 +39,7 @@ const LoginRegisterForm = ({
         {buttonName}
       </button>
       <div onClick={toggleForm}>
-        <a className="link-primary" href="#">
+        <a className="link-info" href="#">
           {toggleText}
         </a>
       </div>

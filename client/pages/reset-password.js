@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { getAuth } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 import { Context } from "../context";
 import firebase from "../firebase";
@@ -26,22 +26,17 @@ const PasswordReset = () => {
     e.preventDefault();
     setLoading(true);
 
-    const config = {
-      url: process.env.passwordResetRedirect,
-      handleCodeInApp: true,
-    };
     const auth = getAuth(firebase);
 
-    await auth
-      .sendPasswordResetEmail(email, config)
+    await sendPasswordResetEmail(auth, email)
       .then(() => {
         setEmail("");
         setLoading(false);
-        toast("Check your email for password reset link");
+        toast.info("Check your email a for password reset link");
       })
       .catch((error) => {
         setLoading(false);
-        toast(error.message);
+        toast.error(error.message);
       });
   };
 
